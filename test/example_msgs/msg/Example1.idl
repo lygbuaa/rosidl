@@ -1,0 +1,43 @@
+// generated from rosidl_adapter/resource/msg.idl.em
+// with input from example_msgs/msg/Example1.msg
+// generated code does not contain a copyright notice
+
+#include "std_msgs/msg/Header.idl"
+
+module example_msgs {
+  module msg {
+    @verbatim (language="comment", text=
+      " for rosidl testing.")
+    struct Example1 {
+      std_msgs::msg::Header header;
+
+      @verbatim (language="comment", text=
+        " 0. <= throttle <= 1.")
+      float throttle;
+
+      @verbatim (language="comment", text=
+        " -1. <= steer <= 1.")
+      float steer;
+
+      @verbatim (language="comment", text=
+        " 0. <= brake <= 1.")
+      float brake;
+
+      @verbatim (language="comment", text=
+        " hand_brake 0 or 1")
+      boolean hand_brake;
+
+      @verbatim (language="comment", text=
+        " reverse 0 or 1")
+      boolean reverse;
+
+      @verbatim (language="comment", text=
+        " gear")
+      int32 gear;
+
+      @verbatim (language="comment", text=
+        " manual gear shift")
+      boolean manual_gear_shift;
+    };
+  };
+};

@@ -18,7 +18,9 @@ import sys
 
 from catkin_pkg.package import package_exists_at
 from catkin_pkg.package import parse_package
-
+from utils import plogging
+global g_logger
+g_logger = plogging.get_logger()
 
 def convert_files_to_idl(extension, conversion_function, argv=sys.argv[1:]):
     parser = argparse.ArgumentParser(
@@ -43,6 +45,7 @@ def convert_files_to_idl(extension, conversion_function, argv=sys.argv[1:]):
             continue
         warnings = []
         pkg = parse_package(package_dir, warnings=warnings)
+        g_logger.info("package_dir: {}, package_name: {}".format(package_dir, pkg.name))
 
         conversion_function(
             package_dir, pkg.name,

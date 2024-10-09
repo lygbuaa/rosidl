@@ -15,9 +15,10 @@
 from io import StringIO
 import os
 import sys
-
 import em
-
+from utils import plogging
+global g_logger
+g_logger = plogging.get_logger()
 
 def expand_template(template_name, data, output_file, encoding='utf-8'):
     content = evaluate_template(template_name, data)
@@ -35,13 +36,16 @@ def expand_template(template_name, data, output_file, encoding='utf-8'):
 _interpreter = None
 
 
+### this is the msg2idl backend
 def evaluate_template(template_name, data):
     global _interpreter
     # create copy before manipulating
     data = dict(data)
     data['TEMPLATE'] = _evaluate_template
+    g_logger.info("empy input dict-data[1]: {}".format(data))
 
     template_path = os.path.join(os.path.dirname(__file__), template_name)
+    g_logger.info("template_path: {}".format(template_path))
 
     output = StringIO()
     try:
@@ -56,8 +60,14 @@ def evaluate_template(template_name, data):
             content = h.read()
         _interpreter.invoke(
             'beforeFile', name=template_name, file=h, locals=data)
+        g_logger.info("empy input dict-data[2]: {}".format(data))
+
+        ### this _interpreter.string() do most of work
         _interpreter.string(content, template_path, locals=data)
+        g_logger.info("empy input dict-data[3]: {}".format(data))
+
         _interpreter.invoke('afterFile')
+        g_logger.info("empy input dict-data[4]: {}".format(data))
 
         return output.getvalue()
     except Exception as e:  # noqa: F841
@@ -69,7 +79,7 @@ def evaluate_template(template_name, data):
         _interpreter.shutdown()
         _interpreter = None
 
-
+### this method will be invoked by _interpreter.string()
 def _evaluate_template(template_name, **kwargs):
     global _interpreter
     template_path = os.path.join(os.path.dirname(__file__), template_name)

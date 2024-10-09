@@ -14,7 +14,9 @@
 
 from rosidl_adapter.parser import parse_message_string
 from rosidl_adapter.resource import expand_template
-
+from utils import plogging
+global g_logger
+g_logger = plogging.get_logger()
 
 def convert_msg_to_idl(package_dir, package_name, input_file, output_dir):
     assert package_dir.is_absolute()
@@ -22,19 +24,24 @@ def convert_msg_to_idl(package_dir, package_name, input_file, output_dir):
     assert input_file.suffix == '.msg'
 
     abs_input_file = package_dir / input_file
-    print(f'Reading input file: {abs_input_file}')
+    g_logger.info(f'Reading input file ---local--- : {abs_input_file}')
     abs_input_file = package_dir / input_file
     content = abs_input_file.read_text(encoding='utf-8')
+
+    g_logger.debug("msg file content: {}".format(content))
     msg = parse_message_string(package_name, input_file.stem, content)
 
     output_file = output_dir / input_file.with_suffix('.idl').name
     abs_output_file = output_file.absolute()
-    print(f'Writing output file: {abs_output_file}')
+    g_logger.info(f'Writing output file: {abs_output_file}')
+
+    ### this dict:data tells empy 
     data = {
         'pkg_name': package_name,
         'relative_input_file': input_file,
         'msg': msg,
     }
+    g_logger.info("empy input dict-data[0]: {}".format(data))
 
     expand_template('msg.idl.em', data, output_file, encoding='iso-8859-1')
     return output_file

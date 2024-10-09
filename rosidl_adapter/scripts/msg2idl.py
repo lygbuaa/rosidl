@@ -14,9 +14,20 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+### using local scripts, not system scripts in /opt/ros/foxy/lib/python3.8/site-packages
+### do remove rosidl packages in /opt/ros/foxy/lib/python3.8/site-packages
+import sys, logging
+sys.path.append('/home/hugoliu/github/colcon_ws/rosidl')
+sys.path.append('/home/hugoliu/github/colcon_ws/rosidl/rosidl_adapter')
+print(sys.path)
 from rosidl_adapter.cli import convert_files_to_idl
 from rosidl_adapter.msg import convert_msg_to_idl
-
+from utils import plogging
 
 if __name__ == '__main__':
+    global g_logger
+    plogging.init_logger(log_dir="./", file_name="msg2idl", level=logging.INFO)
+    g_logger = plogging.get_logger()
+    g_logger.info("init g_logger in {}".format(__file__))
+
     convert_files_to_idl('.msg', convert_msg_to_idl)
