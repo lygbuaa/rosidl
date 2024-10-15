@@ -1,0 +1,18 @@
+#! /usr/bin/env python3
+# -*- coding: utf-8 -*-
+
+import os, sys, logging
+sys.path.append(os.path.join(os.path.dirname(__file__), ".."))
+from utils import plogging
+from fe.json_parser import *
+
+def main():
+    global g_logger
+    do_parse()
+
+if __name__ == '__main__':
+    global g_logger
+    plogging.init_logger(level=logging.INFO, log_dir=None, file_name=None)
+    g_logger = plogging.get_logger()
+    g_logger.info("cwd: {}, target: {}".format(os.getcwd(), os.path.join(os.path.dirname(__file__), __file__)))
+    sys.exit(main() or 0)
