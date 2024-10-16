@@ -6,11 +6,11 @@ from os import path
 
 G_PLOGGING_NAME = "g_plogger_name"
 '''
-    logging.DEBUG,     #debug_mode
-    logging.INFO,       #0
-    logging.WARNING,    #1
-    logging.ERROR,      #2
-    logging.CRITICAL]   #3
+    logging.DEBUG,      # 10
+    logging.INFO,       # 20
+    logging.WARNING,    # 30
+    logging.ERROR,      # 40
+    logging.CRITICAL    # 50
 '''
 G_PLOGGING_LEVEL = logging.DEBUG #logging.INFO
 

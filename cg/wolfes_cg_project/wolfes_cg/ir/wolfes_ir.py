@@ -10,12 +10,6 @@ from typing import List
 
 G_IR_VERSION:str = "0.0.1"
 
-class HostSystem(enum.IntEnum):
-    LINUX = 0
-    WINDOWS = 1
-    MACOS = 2
-    END = 5
-
 class WOLfesAPI(enum.IntEnum):
     NODE = 0
     MODULE = 1
@@ -169,7 +163,6 @@ G_DEFAULT_CLASSNAME:str = "WOLfesApp"
 
 class WOLfesBaseIR(object):
     def __init__(self):
-        self._hostsystem:int    = self.check_host_system()
         self._api:int           = WOLfesAPI.END
         self._platform:int      = WOLfesPlatform.END
         self._lang:int          = WOLfesLang.END
@@ -178,17 +171,6 @@ class WOLfesBaseIR(object):
         self._namespace:str     = G_DEFAULT_NAMESPACE
         self._classname:str     = G_DEFAULT_CLASSNAME
         self._protocoltype:int  = WOLfesProtocolType.END
-
-    def check_host_system(self) -> HostSystem:
-        str_host_sys = platform.system()
-        if str_host_sys == "Linux":
-            return HostSystem.LINUX
-        elif str_host_sys == "Windows":
-            return HostSystem.WINDOWS
-        elif str_host_sys == "macOS":
-            return HostSystem.MACOS
-        else:
-            raise SystemError("host system [{}] unsupported.".format(str_host_sys))
 
 class WOLfesNodeIR(WOLfesBaseIR):
     def __init__(self):
