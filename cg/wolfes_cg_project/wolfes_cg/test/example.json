@@ -1,0 +1,145 @@
+{
+    // [required] specify version of wolfes, format: Major.Minor.Patch.Build, that is "1.2" or "1.2.3.4"
+    "wolfes_version": "0.7.0",
+    // [required] program platform, 0: Linux, 1: Android, 2: RTOS, 3: QNX
+    "platform": 0,
+    // [required] program language, 0: CPP, 1: C, 2: RUST, 3, PYTHON, 4: JAVA
+    "lang": 0,
+    // [required] Each App is a single process with main() entry, it consists of multiple Nodes or Modules
+    "apps": 
+    [
+        {
+            // [required] namespace of app must be given explicitly
+            "namespace": "WOLfesApp0", 
+            // [optional] Not all the protocols support Domain division
+            "domain_id": 0,
+            // [optional] config file for WOLfes Scheduler
+            // "scheduler_config": "C:\\ws\\example\\scheduler_config_0.xml",
+            "scheduler_config": null,
+            // [required] 0: INTRA, 1: SEDDS, 2: SOMEIP, 3: ZMQ_IPC, 4: ZMQ_TCP
+            "protocol_type": 1,
+            // [required] WOLfes Nodes, each node will be translated into one class for C++, or struct for C
+            "nodes": 
+            [
+                {
+                    // [required] node class name must be given explicitly
+                    "classname": "WOLfesNode1",
+                    // [optional] config file for QoS
+                    // "qos_config": "C:\\ws\\example\\qos_config_0.xml",
+                    "qos_config": null,
+                    // [optional] WOLfes Timers
+                    "timers":
+                    [
+                        {
+                            // [optional] Identifier of timer, if not set, default name is "_timer_[index]"
+                            "identifier": null,
+                            // [required] 0: STEADY, 1: SYSTEM, 2: CUSTOM
+                            "type": 0,
+                            // [required] period of timer, in milliseconds
+                            "period": 100,
+                            // [optional] callback function name, if not set, default name is "__Timer[index]Cb"
+                            "cb_function": null
+                        }
+                        // {
+                        // }
+                    ],
+                    // [optional] WOLfes Topic Publishers
+                    "topic_pubs":
+                    [
+                        {
+                            // [optional] Identifier of publisher, if not set, default name is "_topic_pub_[index]"
+                            "identifier": "pub0",
+                            // [required] publisher sends msg on this topic
+                            "topic_name": "/perception/bev_dets",
+                            // [required] Msg class Identifier, either be built-in or custom-defined
+                            "message": "Detection",
+                            // [required] 0: PROTO, 1: SOMEIP, 2: FASTDDS, 3: CYCLONEDDS, 4: RTICONNEXT, 5: ROS, 6: RAW, 7: CUSTOM
+                            "msg_type": 0,
+                            // [optional] give path if custom-defined message type
+                            "msg_src": "C:\\ws\\example\\Detection.proto",
+                            // [optional] publish function name, if not set, default name is "__TopicPub[index]Pub"
+                            "pub_function": null
+                        }
+                        // {
+                        // }
+                    ],
+                    // [optional] WOLfes Topic Subscribers
+                    "topic_subs": 
+                    [
+                        {
+                            // [optional] Identifier of subscriber, if not set, default name is "_topic_sub_[index]"
+                            "identifier": "sub0",
+                            // [required] subscribe msg on this topic
+                            "topic_name": "/perception/bev_dets",
+                            // [required] Msg class Identifier, either be built-in or custom-defined
+                            "message": "Detection",
+                            // [required] 0: PROTO, 1: SOMEIP, 2: FASTDDS, 3: CYCLONEDDS, 4: RTICONNEXT, 5: ROS, 6: RAW, 7: CUSTOM
+                            "msg_type": 0,
+                            // [optional] give path if custom-defined message type
+                            "msg_src": "C:\\ws\\example\\Detection.proto",
+                            // [optional] callback function name, if not set, default name is "__TopicSub[index]Cb"
+                            "cb_function": null
+                        }
+                        // {
+                        // }
+                    ],
+                    // [optional] WOLfes Service Servers
+                    "service_servers": 
+                    [
+                        {
+                            // [optional] Identifier of server, if not set, default name is "_service_server_[index]"
+                            // "identifier": "0",
+                            // [required] server provide service on this channel
+                            "service_name": "/planning/do_plan",
+                            // [required] Msg class Identifier, either be built-in or custom-defined
+                            "message": "PlanRequest",
+                            // [required] 0: PROTO, 1: SOMEIP, 2: FASTDDS, 3: CYCLONEDDS, 4: RTICONNEXT, 5: ROS, 6: RAW, 7: CUSTOM
+                            "msg_type": 0,
+                            // [optional] give path if custom-defined message type
+                            "msg_src": "C:\\ws\\example\\PlanRequest.proto",
+                            // [optional] server response function name, if not set, default name is "__ServiceServer[index]Res"
+                            "res_function": null
+                        }
+                        // {
+                        // }
+                    ],
+                    // [optional] WOLfes Service Clients
+                    "service_clients": 
+                    [
+                        {
+                            // [optional] Identifier of client, if not set, default name is "_service_client_[index]"
+                            // "identifier": "0",
+                            // [required] client request service on this channel
+                            "service_name": "/planning/do_plan",
+                            // [required] Msg class Identifier, either be built-in or custom-defined
+                            "message": "PlanRequest",
+                            // [required] 0: PROTO, 1: SOMEIP, 2: FASTDDS, 3: CYCLONEDDS, 4: RTICONNEXT, 5: ROS, 6: RAW, 7: CUSTOM
+                            "msg_type": 0,
+                            // [optional] give path if custom-defined message type
+                            "msg_src": "C:\\ws\\example\\PlanRequest.proto",
+                            // [optional] client request function name, if not set, default name is "__ServiceClient[index]Req"
+                            "req_function": null
+                        }
+                        // {
+                        // }
+                    ],
+                    // [optional] WOLfes Actions will be supported in future version
+                    "action_servers": 
+                    [],
+                    "action_clients": 
+                    []
+                }
+                // {
+                //     "classname": "WOLfesNode2"
+                // }
+            ],
+            // [optional] WOLfes Modules will be supported in future version
+            "modules":
+            [
+            ]
+        }
+        // {
+        //     "namespace": "WOLfesApp1"
+        // }
+    ]
+}

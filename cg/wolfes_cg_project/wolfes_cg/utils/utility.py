@@ -2,7 +2,8 @@
 # -*- coding: utf-8 -*-
 
 import os, sys, platform, enum
-import pathlib
+import pathlib, re
+from typing import List
 from wolfes_cg.utils import plogging
 
 class HostSystem(enum.IntEnum):
@@ -36,7 +37,7 @@ class UtilityFunctions(object):
         elif str_host_sys == "Windows":
             return HostSystem.WINDOWS
         elif str_host_sys == "macOS":
-            raise SystemError("MACOS not supported !".format(str_host_sys))
+            raise SystemError("MACOS not supported !")
         else:
             raise SystemError("invalid host system [{}] !".format(str_host_sys))
     
@@ -63,3 +64,13 @@ class UtilityFunctions(object):
                 return None
         else:
             return None
+        
+    def check_identifier(self, id_str:str) -> bool:
+        return id_str.isidentifier()
+    
+    def check_identifier_duplicate(self, ids:List[str]) -> bool:
+        for id in ids:
+            cnt = ids.count(id)
+            if cnt > 1:
+                return True
+        return False

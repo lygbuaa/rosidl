@@ -17,7 +17,7 @@ setup(
    author_email='ElonMusk@mars.com',
    packages=['wolfes_cg', 'wolfes_cg.be', 'wolfes_cg.fe', 'wolfes_cg.bin', 'wolfes_cg.ir', 'wolfes_cg.utils'],  #same as name
    package_data={
-       "wolfes_cg": ['bin/run_wolfes_cg.sh', 'bin/run_wolfes_cg.bat']
+       "wolfes_cg": ['bin/run_wolfes_cg.sh', 'bin/run_wolfes_cg.bat', 'test/*']
    },
    install_requires=['empy>=3.0'], #external packages as dependencies
 )

@@ -18,5 +18,11 @@ function find_entry_path() {
 ENTRY_PATH=$( find_entry_path )
 # echo "ENTRY_PATH: ${ENTRY_PATH}"
 # echo "input command line: $@"
-python3 ${ENTRY_PATH}/wolfes_cg_main.py "$@"
+# python3 ${ENTRY_PATH}/wolfes_cg_main.py "$@"
 
+TEST_PATH=${ENTRY_PATH}/../test
+### calling example
+INPUT_ARGS="--input ${TEST_PATH}/example.json"
+OUTPUT_ARGS="--output ~/tmp/cg"
+LOG_LEVEL="--loglevel 10"
+python3 ${ENTRY_PATH}/wolfes_cg_main.py ${INPUT_ARGS} ${OUTPUT_ARGS} ${LOG_LEVEL}
